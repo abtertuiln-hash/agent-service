@@ -28,6 +28,10 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# 注册路由
+from app.modules.product.router import router as product_router
+app.include_router(product_router)
+
 # CORS配置，解决跨域问题
 app.add_middleware(
     CORSMiddleware,

@@ -37,6 +37,7 @@ dependencies = [
     { name = "langgraph-checkpoint-postgres" },
     { name = "mineru-open-sdk" },
     { name = "openai" },
+    { name = "product" },
     { name = "psycopg", extra = ["binary", "pool"] },
     { name = "pwdlib", extra = ["argon2"] },
     { name = "pydantic" },
@@ -67,6 +68,7 @@ requires-dist = [
     { name = "langgraph-checkpoint-postgres", specifier = ">=3.1.0" },
     { name = "mineru-open-sdk", specifier = ">=0.2.5" },
     { name = "openai", specifier = ">=2.48.0" },
+    { name = "product", specifier = ">=0.1.1.1" },
     { name = "psycopg", extras = ["binary", "pool"], specifier = ">=3.3.4" },
     { name = "pwdlib", extras = ["argon2"], specifier = ">=0.3.0" },
     { name = "pydantic", specifier = ">=2.13.4" },
@@ -830,9 +832,9 @@ name = "faiss-cpu"
 version = "1.15.0"
 source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }
 dependencies = [
-    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }, marker = "python_full_version < '3.12'" },
-    { name = "numpy", version = "2.5.2", source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }, marker = "python_full_version >= '3.12'" },
-    { name = "packaging" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }, marker = "python_full_version < '3.12' and sys_platform != 'win32'" },
+    { name = "numpy", version = "2.5.2", source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }, marker = "python_full_version >= '3.12' and sys_platform != 'win32'" },
+    { name = "packaging", marker = "sys_platform != 'win32'" },
 ]
 wheels = [
     { url = "https://pypi.tuna.tsinghua.edu.cn/packages/59/68/20e91694ad9a8b2bb48af956899e52b645cb1501e7e2ec31cb733da4d4c5/faiss_cpu-1.15.0-cp310-abi3-macosx_14_0_arm64.whl", hash = "sha256:50ea471ef1f4f3580eda8ab0ec9727d4bf65fd71c444bf306ce7cdbba8a42b21", size = 4904897, upload-time = "2026-08-03T17:49:37.003Z" },
@@ -1105,8 +1107,8 @@ name = "httpcore2"
 version = "2.12.0"
 source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }
 dependencies = [
-    { name = "h11" },
-    { name = "truststore" },
+    { name = "h11", marker = "sys_platform != 'emscripten'" },
+    { name = "truststore", marker = "sys_platform != 'emscripten'" },
 ]
 sdist = { url = "https://pypi.tuna.tsinghua.edu.cn/packages/be/ad/f4f0e57345f1870f3e8cb624e058d7eca6e5a27d33bcc3311d9b618734cd/httpcore2-2.12.0.tar.gz", hash = "sha256:9293522bba0aa7c4c8e9e3f040c16575bd8868e155a77fa30c7a9085a5eae648", size = 67548, upload-time = "2026-08-18T13:22:08.211Z" }
 wheels = [
@@ -1766,11 +1768,11 @@ name = "milvus-lite"
 version = "3.2.0"
 source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }
 dependencies = [
-    { name = "faiss-cpu" },
-    { name = "grpcio" },
-    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }, marker = "python_full_version < '3.12'" },
-    { name = "numpy", version = "2.5.2", source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }, marker = "python_full_version >= '3.12'" },
-    { name = "pyarrow" },
+    { name = "faiss-cpu", marker = "sys_platform != 'win32'" },
+    { name = "grpcio", marker = "sys_platform != 'win32'" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }, marker = "python_full_version < '3.12' and sys_platform != 'win32'" },
+    { name = "numpy", version = "2.5.2", source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }, marker = "python_full_version >= '3.12' and sys_platform != 'win32'" },
+    { name = "pyarrow", marker = "sys_platform != 'win32'" },
 ]
 sdist = { url = "https://pypi.tuna.tsinghua.edu.cn/packages/4d/59/caab693e260fb00704672838f332eb0ffeff552806d270ee61f736e14dd4/milvus_lite-3.2.0.tar.gz", hash = "sha256:d6735d7a5bcb14fed2cc9a42da84d7396fef0040a0f7c2d1cace9f2134925571", size = 719788, upload-time = "2026-08-06T08:58:39.198Z" }
 wheels = [
@@ -2302,7 +2304,7 @@ name = "pexpect"
 version = "4.9.0"
 source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }
 dependencies = [
-    { name = "ptyprocess" },
+    { name = "ptyprocess", marker = "sys_platform != 'emscripten' and sys_platform != 'win32'" },
 ]
 sdist = { url = "https://pypi.tuna.tsinghua.edu.cn/packages/42/92/cc564bf6381ff43ce1f4d06852fc19a2f11d180f23dc32d9588bee2f149d/pexpect-4.9.0.tar.gz", hash = "sha256:ee7d41123f3c9911050ea2c2dac107568dc43b2d3b0c7557a33212c398ead30f", size = 166450, upload-time = "2023-11-25T09:07:26.339Z" }
 wheels = [
@@ -2317,6 +2319,12 @@ sdist = { url = "https://pypi.tuna.tsinghua.edu.cn/packages/50/bb/ebc6636e1ae413
 wheels = [
     { url = "https://pypi.tuna.tsinghua.edu.cn/packages/28/be/0ff05fcd2938fb58ad9219bd54135968342d214737e012d62d43f06a2dd6/platformdirs-4.11.4-py3-none-any.whl", hash = "sha256:e34ff91a24bcddc6d939b878bdf3f5c437c9c46fe9e212b1bf455fdf1ee57586", size = 23741, upload-time = "2026-08-24T14:53:48.406Z" },
 ]
+
+[[package]]
+name = "product"
+version = "0.1.1.1"
+source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }
+sdist = { url = "https://pypi.tuna.tsinghua.edu.cn/packages/4f/37/1542f1010e6d35d7af34742d708f6ebaaf85c720f8546d2100fbcbf01318/product-0.1.1.1.tar.gz", hash = "sha256:a78873fc640e4de4d47346a05e19f6d4318b66a47b65307cd753d4e514e2ce13", size = 769, upload-time = "2017-05-14T17:34:40.027Z" }
 
 [[package]]
 name = "prompt-toolkit"
