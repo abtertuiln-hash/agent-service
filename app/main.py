@@ -1,13 +1,26 @@
 from fastapi import FastAPI,Request
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
+from contextlib import asynccontextmanager
+import uvicorn
+
 
 from app.core.config import settings
 from app.core.logging import configure_logging, get_logger
-import uvicorn
-from contextlib import asynccontextmanager
 from app.core.exceptions import ApplicationError
 from app.modules.chat_thread.exceptions import ChatThreadNotFoundError
+from app.agents.insurance_advisor import init_insurance_agent
+from app.modules.chat.router import router as chat_router
+from app.modules.chat_thread.router import router as chat_thread_router
+from app.modules.product.router import router as product_router
+
+
+
+import sys
+from app.infra.checkpointer import (
+    close_checkpointer,
+    init_checkpointer,
+)
 
 
 
@@ -19,13 +32,23 @@ logger = get_logger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info(f"【{settings.app.name}】应用启动中...")
+    from app.infra.checkpointer import init_checkpointer,close_checkpointer
     from app.infra.database import check_database, close_database
     try:
+        # 1.检查SQLAlchemy的数据库连接状态
         await check_database()
+        # 2.初始化checkpointer
+        checkpointer = await init_checkpointer()
+        # 3.初始化保险顾问Agent
+        app.state.agent = init_insurance_agent(checkpointer)
+
         yield
     finally:
         logger.info("应用关闭中... ")
+        # 关闭SQLAlchemy的数据库连接池
         await close_database()
+        # 关闭checkpointer的数据库连接池
+        await close_checkpointer()
 
 app = FastAPI(
     title=settings.app.name,
@@ -40,6 +63,11 @@ app.include_router(product_router)
 #注册会话路由
 from app.modules.chat_thread.router import router as chat_thread_router
 app.include_router(chat_thread_router)
+
+#注册对话路由
+app.include_router(chat_router)
+app.include_router(chat_thread_router)
+app.include_router(product_router)
 
 
 # CORS配置，解决跨域问题
@@ -76,5 +104,6 @@ if __name__ == "__main__":
         "app.main:app",
         host=settings.app.host,
         port=settings.app.port,
-        reload=False
+        reload=False,
+        loop= "asyncio:SelectorEventLoop" if sys.platform == "win32" else "auto",
     )

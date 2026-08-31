@@ -1,6 +1,8 @@
 from pydantic import BaseModel,Field,field_validator
 from uuid import UUID
 from datetime import datetime
+from langgraph.graph.state import CompiledStateGraph
+from typing import Any, Literal
 
 
 class ChatThreadCreate(BaseModel):
@@ -22,3 +24,17 @@ class ChatThreadResponse(BaseModel):
 
     # 设置数据模型的配置信息
     model_config = {'from_attributes': True}
+
+
+class ChatMessageResponse(BaseModel):
+    """历史消息"""
+    
+    role: Literal["user", "assistant"]
+    content: str
+
+
+class ChatHistoryResponse(BaseModel):
+    """会话历史响应"""
+
+    thread_id: UUID
+    messages: list[ChatMessageResponse]

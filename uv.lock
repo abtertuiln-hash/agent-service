@@ -24,6 +24,7 @@ dependencies = [
     { name = "aiostream" },
     { name = "asyncpg" },
     { name = "beautifulsoup4" },
+    { name = "checkpointer" },
     { name = "dashscope" },
     { name = "fastapi" },
     { name = "ipykernel" },
@@ -45,6 +46,7 @@ dependencies = [
     { name = "pyjwt" },
     { name = "pymilvus" },
     { name = "pypdf" },
+    { name = "snapshot" },
     { name = "sqlalchemy" },
     { name = "structlog" },
     { name = "uvicorn" },
@@ -55,6 +57,7 @@ requires-dist = [
     { name = "aiostream", specifier = ">=0.7.1" },
     { name = "asyncpg", specifier = ">=0.31.0" },
     { name = "beautifulsoup4", specifier = ">=4.15.0" },
+    { name = "checkpointer", specifier = ">=2.14.12" },
     { name = "dashscope", specifier = ">=1.26.4" },
     { name = "fastapi", specifier = ">=0.139.2" },
     { name = "ipykernel", specifier = ">=7.3.0" },
@@ -76,6 +79,7 @@ requires-dist = [
     { name = "pyjwt", specifier = ">=2.13.0" },
     { name = "pymilvus", specifier = ">=3.0.0" },
     { name = "pypdf", specifier = ">=6.14.2" },
+    { name = "snapshot", specifier = ">=0.1.2" },
     { name = "sqlalchemy", specifier = ">=2.0.51" },
     { name = "structlog", specifier = ">=26.1.0" },
     { name = "uvicorn", specifier = ">=0.51.0" },
@@ -672,6 +676,15 @@ wheels = [
     { url = "https://pypi.tuna.tsinghua.edu.cn/packages/35/4f/b911ed898b26a09789eba9c9200c999aff6c61b4bafaf4838e56d1a1e1a3/charset_normalizer-3.5.1-cp37-abi3-win_amd64.whl", hash = "sha256:70055ff39b97c99e7ae40ea3e393fb62aa2e44dbd9b29f8d14f42fb0025c3959", size = 199764, upload-time = "2026-08-15T08:20:13.908Z" },
     { url = "https://pypi.tuna.tsinghua.edu.cn/packages/f0/a7/920baf467bfd9bf689f3b318340f37aee4572a71f162bd8db51da55ba4fa/charset_normalizer-3.5.1-cp37-abi3-win_arm64.whl", hash = "sha256:87e4f41d375c0b9be2fb5251aee4b8a689169e134535aed81bf085c3b647451e", size = 287318, upload-time = "2026-08-15T08:20:15.551Z" },
     { url = "https://pypi.tuna.tsinghua.edu.cn/packages/cc/61/d01fc49b8dea277640b55a9e15960dbca9fdc8c9fde18e572d39c59f4019/charset_normalizer-3.5.1-py3-none-any.whl", hash = "sha256:6df0ec430f9a831772c23ca5a224cba36517a58a84bb32c32bb59a9fa67c47f6", size = 68658, upload-time = "2026-08-15T08:20:43.306Z" },
+]
+
+[[package]]
+name = "checkpointer"
+version = "2.14.12"
+source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }
+sdist = { url = "https://pypi.tuna.tsinghua.edu.cn/packages/a8/65/8504040dcdf0eb1681f737ce6b42a6b45a698b2f098277d1e89c4c7fead6/checkpointer-2.14.12.tar.gz", hash = "sha256:442213781920d6fc35f8d5f896334156778e037fcb95b06a38c99c8da752d2b3", size = 46686, upload-time = "2026-07-08T09:19:01.486Z" }
+wheels = [
+    { url = "https://pypi.tuna.tsinghua.edu.cn/packages/60/1f/df925d1d4303347889518e7cf5ad0f5a89d08d535dc2b9d89eeaeabc16bc/checkpointer-2.14.12-py3-none-any.whl", hash = "sha256:eabef45491ea12e40e4506981acffbf6b6fcea8617860f5775a5d394e2317662", size = 26552, upload-time = "2026-07-08T09:18:57.121Z" },
 ]
 
 [[package]]
@@ -3305,6 +3318,12 @@ sdist = { url = "https://pypi.tuna.tsinghua.edu.cn/packages/94/e7/b2c673351809dc
 wheels = [
     { url = "https://pypi.tuna.tsinghua.edu.cn/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274", size = 11050, upload-time = "2024-12-04T17:35:26.475Z" },
 ]
+
+[[package]]
+name = "snapshot"
+version = "0.1.2"
+source = { registry = "https://pypi.tuna.tsinghua.edu.cn/simple" }
+sdist = { url = "https://pypi.tuna.tsinghua.edu.cn/packages/01/04/1c823500a2499ac1dff732c8107e25e9c3ccbeac04f42a275a659e9967db/snapshot-0.1.2.tar.gz", hash = "sha256:6d0809a8b488eee00def7edc7775b1cb9dd84bfbadef38aa6890934535731a2e", size = 4437, upload-time = "2021-11-15T12:45:56.562Z" }
 
 [[package]]
 name = "sniffio"

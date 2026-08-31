@@ -34,17 +34,39 @@ class DatabaseSettings(EnvSettings):
     pool_timeout: int = Field(alias="DB_POOL_TIMEOUT", default=30)
     pool_recycle: int = Field(alias="DB_POOL_RECYCLE", default=1800)
 
-    @computed_field
-    @property
-    def url(self) -> str:
-        # 自动拼接URL路径
+    def build_url(self,scheme: str) -> str:
         return PostgresDsn.build(
-            scheme="postgresql+asyncpg",
+            scheme=scheme,
             host=self.host,
             port=self.port,
             username=self.user,
-            password=self.password
+            password=self.password,
+            path=self.name
         ).encoded_string()
+
+    @computed_field
+    @property
+    def url(self) -> str:
+        """SQLAlchemy使用的连接字符串"""
+        return self.build_url("postgresql+asyncpg")
+
+    @computed_field
+    @property
+    def checkpoint_url(self) -> str:
+        """checkpointer使用的连接字符串"""
+        return self.build_url("postgresql")
+
+    # @computed_field
+    # @property
+    # def url(self) -> str:
+    #     # 自动拼接URL路径
+    #     return PostgresDsn.build(
+    #         scheme="postgresql+asyncpg",
+    #         host=self.host,
+    #         port=self.port,
+    #         username=self.user,
+    #         password=self.password
+    #     ).encoded_string()
 
 class LLMSettings(EnvSettings):
     """模型相关配置"""
