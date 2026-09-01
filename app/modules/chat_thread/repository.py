@@ -4,7 +4,7 @@ from sqlalchemy import select
 
 from .. import chat_thread
 
-
+#仓储类，采用 Repository 模式
 class ChatThreadRepository:
 
     def __init__(self,session: AsyncSession):

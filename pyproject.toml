@@ -11,6 +11,7 @@ dependencies = [
     "dashscope>=1.26.4",
     "fastapi>=0.139.2",
     "ipykernel>=7.3.0",
+    "item",
     "langchain>=1.3.14",
     "langchain-community>=0.4.2",
     "langchain-deepseek>=1.1.0",

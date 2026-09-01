@@ -4,7 +4,6 @@ from starlette.responses import JSONResponse
 from contextlib import asynccontextmanager
 import uvicorn
 
-
 from app.core.config import settings
 from app.core.logging import configure_logging, get_logger
 from app.core.exceptions import ApplicationError
@@ -15,13 +14,11 @@ from app.modules.chat_thread.router import router as chat_thread_router
 from app.modules.product.router import router as product_router
 
 
-
 import sys
 from app.infra.checkpointer import (
     close_checkpointer,
     init_checkpointer,
 )
-
 
 
 # 初始化日志系统
