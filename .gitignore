@@ -33,6 +33,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+notebook/
 
 # ==========================================
 # 3. 前端与 Node 依赖（若涉及全栈项目）
